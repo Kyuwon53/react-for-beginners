@@ -1,39 +1,22 @@
-import { useEffect, useState } from "react";
-function Movie() {
-  const [loading, setLoding] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const getMovies = async () => {
-    const json = await (
-      await fetch(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year`
-      )
-    ).json();
-    setMovies(json.data.movies);
-    setLoding(false);
-  }
-  useEffect(() => {
-    getMovies();
-    console.log({movies})
-  }, []);
-  return (
-    <div>
-      {loading ?
-        <h1>Loading....</h1> :
-        <div>
-          {movies.map((movie) => (
-            <div key={movie.id}>
-              <img src={movie.medium_cover_image} />
-              <h2>{movie.title}</h2>
-              <p>{movie.summary}</p>
-              <ul>
-                <li>{movie.genres}</li>
-              </ul>
-            </div>
-          ))}
-        </div>
-      }
-    </div>
-  );
+import PropTypes from "prop-types";
+function Movie({ coverImg, title, summary, genres }) {
+  return <div>
+    <img src={coverImg} alt={title} />
+    <h2>{title}</h2>
+    <p>{summary}</p>
+    <ul>
+      {genres.map((g) => (
+        <li key={g}>{g}</li>
+      ))}
+    </ul>
+  </div>;
 }
+
+Movie.propTypes = {
+  coverImg: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  summary: PropTypes.string.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default Movie;
