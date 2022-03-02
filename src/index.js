@@ -1,14 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import Todo from './Todo';
-import Coin from './Coin';
+import MovieApp from './MovieApp';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    <Todo />
-    <Coin />
+    <MovieApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
